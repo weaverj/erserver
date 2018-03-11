@@ -1,0 +1,20 @@
+---
+Test
+---
+!2 !c Single dose calculation by age and medication
+
+Single dose calculation for children is based on the age of the child and the medication being prescribed.
+
+
+|Decision: dose calculation by med and age                                                                                  |
+|age      |medication                 |child classification?|dose?    |# comment                                            |
+|1 day    |Tylenol Oral Suspension    |NEONATE              |0        |Check age boundaries working correctly to match doses|
+|29 days  |Tylenol Oral Suspension    |NEONATE              |0        |                                                     |
+|30 days  |Tylenol Oral Suspension    |INFANT               |2.5 ml   |                                                     |
+|1 month  |Tylenol Oral Suspension    |INFANT               |2.5 ml   |                                                     |
+|23 months|Tylenol Oral Suspension    |INFANT               |2.5 ml   |                                                     |
+|2 years  |Tylenol Oral Suspension    |CHILD                |5 ml     |                                                     |
+|11 years |Tylenol Oral Suspension    |CHILD                |5 ml     |                                                     |
+|12 years |Tylenol Oral Suspension    |ADOLESCENT           |15 ml    |                                                     |
+|15 years |Tylenol Oral Suspension    |ADOLESCENT           |15 ml    |                                                     |
+|15 years |Amoxicillin Oral Suspension|ADOLESCENT           |120 mg/kg|Check dosage by medication working                   |
