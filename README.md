@@ -1,6 +1,6 @@
 # ERServer - Unit Testing Legacy Code in Java
 
-ERServer is the sample application for the [Pluralsight](http://pluralsight.com) course [Unit Testing Legacy Code in Java](http://pluralsight.com).  It is a Java application to support a hospital emergency room's application.  The packages are arranged by course modules.
+ERServer is the sample application for the [Pluralsight](http://pluralsight.com) course [Unit Testing Legacy Code in Java](http://pluralsight.com).  It is a Java application to support a hospital emergency room's operation.  The packages are arranged by course modules.
 
 ## Prerequisites / Requirements
 
