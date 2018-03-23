@@ -1,0 +1,7 @@
+>SetUp
+
+|[[Dose Calculation][>DoseCalculation]]|Verify child doses based on age and medication.|
+
+
+!define TEST_SYSTEM {slim}
+!path ../target/classes
