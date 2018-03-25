@@ -20,41 +20,41 @@ public class DosingCalculatorTest {
 
     @Test
     public void returnsCorrectDosesForNeonate() {
-        patient.setBirthDate(LocalDate.now().minusDays(20));
-        String singleDose = dosingCalculator.getSingleDose(patient, "Tylenol Oral Suspension");
+        patient.setBirthDate(LocalDate.now().minusMonths(1));
+        String singleDose = dosingCalculator.getRecommendedSingleDose(patient, "Tylenol Oral Suspension");
         assertEquals("0", singleDose);
     }
 
     @Test
     public void returnsCorrectDosesForInfant() {
         patient.setBirthDate(LocalDate.now().minusDays(40));
-        String singleDose = dosingCalculator.getSingleDose(patient, "Tylenol Oral Suspension");
+        String singleDose = dosingCalculator.getRecommendedSingleDose(patient, "Tylenol Oral Suspension");
         assertEquals("2.5 ml", singleDose);
     }
 
     @Test
     public void returnsCorrectDosesForChild() {
         patient.setBirthDate(LocalDate.now().minusYears(3));
-        String singleDose = dosingCalculator.getSingleDose(patient, "Tylenol Oral Suspension");
+        String singleDose = dosingCalculator.getRecommendedSingleDose(patient, "Tylenol Oral Suspension");
         assertEquals("5 ml", singleDose);
     }
 
     @Test
     public void returnsCorrectDosesForNeonateAmox() {
         patient.setBirthDate(LocalDate.now().minusDays(20));
-        String singleDose = dosingCalculator.getSingleDose(patient, "Amoxicillin Oral Suspension");
+        String singleDose = dosingCalculator.getRecommendedSingleDose(patient, "Amoxicillin Oral Suspension");
         assertEquals("15 mg/kg", singleDose);
     }
 
     @Test(expected = RuntimeException.class)
     public void returnsExceptionForAdults() {
         patient.setBirthDate(LocalDate.now().minusYears(16));
-        dosingCalculator.getSingleDose(patient, "Amoxicillin Oral Suspension");
+        dosingCalculator.getRecommendedSingleDose(patient, "Amoxicillin Oral Suspension");
     }
 
     @Test(expected = RuntimeException.class)
     public void returnsNullForUnrecognizedMedication() {
         patient.setBirthDate(LocalDate.now().minusYears(16));
-        dosingCalculator.getSingleDose(patient, "No Such Med");
+        dosingCalculator.getRecommendedSingleDose(patient, "No Such Med");
     }
 }

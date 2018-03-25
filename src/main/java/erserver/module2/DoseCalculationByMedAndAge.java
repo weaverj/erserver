@@ -31,7 +31,7 @@ public class DoseCalculationByMedAndAge {
 
     public String dose() {
         DosingCalculator calculator = new DosingCalculator();
-        return calculator.getSingleDose(patient, medication);
+        return calculator.getRecommendedSingleDose(patient, medication);
     }
 
     public void setAge(String age) {
