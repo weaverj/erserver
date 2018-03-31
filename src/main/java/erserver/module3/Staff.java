@@ -7,40 +7,38 @@ import java.util.List;
 
 public class Staff {
 
-    private String name;
-    private StaffRole role;
+   private String name;
+   private StaffRole role;
 
-    private List<Patient> assignedPatients;
-    private List<Bed> assignedBeds;
+   public Staff(String name, StaffRole role) {
+      this.name = name;
+      this.role = role;
+   }
 
-    public Staff(String name, StaffRole role) {
-        this.name = name;
-        this.role = role;
-        this.assignedBeds = new ArrayList<>();
-        this.assignedPatients = new ArrayList<>();
-    }
+   public String getName() {
+      return name;
+   }
 
-    public String getName() {
-        return name;
-    }
+   public StaffRole getRole() {
+      return role;
+   }
 
-    public StaffRole getRole() {
-        return role;
-    }
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
 
-    public void assignToBed(Bed bed) {
-        assignedBeds.add(bed);
-    }
+      Staff staff = (Staff) o;
 
-    public void assignToPatient(Patient patient) {
-        assignedPatients.add(patient);
-    }
+      if (!name.equals(staff.name)) return false;
+      return role == staff.role;
 
-    public void clearAssignment(Patient patient) {
-        assignedPatients.remove(patient);
-    }
+   }
 
-    public void clearAssignment(Bed bed) {
-        assignedBeds.remove(bed);
-    }
+   @Override
+   public int hashCode() {
+      int result = name.hashCode();
+      result = 31 * result + role.hashCode();
+      return result;
+   }
 }
