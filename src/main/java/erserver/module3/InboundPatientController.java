@@ -47,4 +47,8 @@ public class InboundPatientController {
       return patients;
    }
 
+   public void informOfPatientArrival(int transportId) {
+      transportService.informOfArrival(transportId);
+   }
+
 }

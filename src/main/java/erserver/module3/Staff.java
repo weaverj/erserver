@@ -1,16 +1,13 @@
 package erserver.module3;
 
-import erserver.module2.Patient;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class Staff {
 
+   private int staffId;
    private String name;
    private StaffRole role;
 
-   public Staff(String name, StaffRole role) {
+   public Staff(int staffId, String name, StaffRole role) {
+      this.staffId = staffId;
       this.name = name;
       this.role = role;
    }
@@ -23,6 +20,10 @@ public class Staff {
       return role;
    }
 
+   public int getStaffId() {
+      return staffId;
+   }
+   
    @Override
    public boolean equals(Object o) {
       if (this == o) return true;
@@ -30,15 +31,12 @@ public class Staff {
 
       Staff staff = (Staff) o;
 
-      if (!name.equals(staff.name)) return false;
-      return role == staff.role;
+      return staffId == staff.staffId;
 
    }
 
    @Override
    public int hashCode() {
-      int result = name.hashCode();
-      result = 31 * result + role.hashCode();
-      return result;
+      return staffId;
    }
 }

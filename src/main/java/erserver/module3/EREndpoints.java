@@ -2,9 +2,6 @@ package erserver.module3;
 
 
 import com.google.gson.Gson;
-import erserver.module2.Patient;
-
-import java.util.List;
 
 import static spark.Spark.*;
 
@@ -49,8 +46,26 @@ public class EREndpoints {
          return mainController.getStaffAssignmentManager().getAvailableBeds();
       }, gson::toJson);
 
-   }
+      post("/assignPatientToBed", (request, response) -> {
+         int transportId = Integer.parseInt(request.queryParams("transportId"));
+         int bedId = Integer.parseInt(request.queryParams("bedId"));
+         System.out.println("Client request to assign patient " + transportId + " to bed " + bedId);
+         AssignPatientToBedCommand command = new AssignPatientToBedCommand(mainController.getStaffAssignmentManager(),
+            mainController.getInboundPatientController());
+         command.assignPatientToBed(transportId, bedId);
+         return "OK";
+      });
 
-   ;
+      post("/assignStaffToBed", (request, response) -> {
+         int bedId = Integer.parseInt(request.queryParams("bedId"));
+         int[] staffIds = gson.fromJson(request.body(), int[].class);
+         System.out.println("Client request to assign staff to bed " + bedId);
+         AssignStaffToBedCommand command = new AssignStaffToBedCommand(mainController.getStaffAssignmentManager());
+         command.assignStaffToBed(staffIds, bedId);
+         return "OK";
+      });
+
+
+   }
 
 }

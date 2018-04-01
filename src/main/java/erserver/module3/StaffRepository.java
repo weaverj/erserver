@@ -26,9 +26,10 @@ public class StaffRepository {
       while (scanner.hasNextLine()) {
          String line = scanner.nextLine();
          String[] values = line.split(",");
-         String name = values[0];
-         String roleString = values[1];
-         Staff staff = new Staff(name, StaffRole.valueOf(roleString));
+         int empId = Integer.parseInt(values[0]);
+         String name = values[1];
+         String roleString = values[2];
+         Staff staff = new Staff(empId, name, StaffRole.valueOf(roleString));
          staffList.add(staff);
       }
       return staffList;

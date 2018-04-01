@@ -1,5 +1,6 @@
 package erserver.module3;
 
+import com.google.gson.Gson;
 import erserver.module2.Patient;
 
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ public class ERStubSystem {
    private static int transportIds = 1;
 
    public static void main(String[] args) {
+
+      Gson gson = new Gson();
 
       patientsInTransport = new ArrayList<>();
       Patient initialPatient = new Patient();
@@ -43,6 +46,13 @@ public class ERStubSystem {
 
       get("/inbound", (request, response) -> {
          return patientsToXml();
+      });
+
+      post("simulateNewTransport", (request, response) -> {
+         Patient patient = gson.fromJson(request.body(), Patient.class);
+         patient.setTransportId(transportIds++);
+         patientsInTransport.add(patient);
+         return "OK";
       });
    }
 

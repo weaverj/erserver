@@ -74,6 +74,25 @@ public class StaffAssignmentManager {
          currentlyAssignedToBed = new ArrayList<>();
       }
       currentlyAssignedToBed.add(staff);
+      bedStaffAssignments.put(bed, currentlyAssignedToBed);
+   }
+
+   public Bed getBedById(int bedId) {
+      for (Bed bed : beds) {
+         if (bed.getBedId() == bedId) {
+            return bed;
+         }
+      }
+      return null;
+   }
+
+   public Staff getStaffById(int staffId) {
+      for (Staff staff : shiftStaff) {
+         if (staff.getStaffId() == staffId) {
+            return staff;
+         }
+      }
+      return null;
    }
 
 
