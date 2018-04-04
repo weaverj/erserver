@@ -1,4 +1,4 @@
-package erserver.module2;
+package erserver.modules.testtypes;
 
 import org.junit.Before;
 import org.junit.Test;

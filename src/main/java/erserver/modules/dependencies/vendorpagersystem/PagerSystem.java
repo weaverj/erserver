@@ -1,4 +1,4 @@
-package erserver.module3.vendorpagersystem;
+package erserver.modules.dependencies.vendorpagersystem;
 
 public final class PagerSystem {
 

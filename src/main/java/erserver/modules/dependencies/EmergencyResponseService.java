@@ -1,12 +1,10 @@
-package erserver.module3;
+package erserver.modules.dependencies;
 
-import erserver.module2.Patient;
 import org.apache.http.HttpVersion;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.entity.ContentType;
 
 import java.io.IOException;
-import java.util.List;
 
 public class EmergencyResponseService {
 

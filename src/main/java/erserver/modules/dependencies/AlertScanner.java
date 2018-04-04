@@ -1,8 +1,8 @@
-package erserver.module3;
+package erserver.modules.dependencies;
 
-import erserver.module2.Patient;
-import erserver.module3.vendorpagersystem.PagerSystem;
-import erserver.module3.vendorpagersystem.PagerTransport;
+import erserver.modules.dependencies.vendorpagersystem.PagerTransport;
+import erserver.modules.testtypes.Patient;
+import erserver.modules.dependencies.vendorpagersystem.PagerSystem;
 
 import java.util.ArrayList;
 import java.util.List;

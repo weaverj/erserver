@@ -1,4 +1,4 @@
-package erserver.module2;
+package erserver.modules.testtypes;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;

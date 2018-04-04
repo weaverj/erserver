@@ -1,9 +1,6 @@
-package erserver.module3;
+package erserver.modules.dependencies;
 
-import erserver.module2.Patient;
-
-import java.util.ArrayList;
-import java.util.List;
+import erserver.modules.testtypes.Patient;
 
 public class Bed {
 

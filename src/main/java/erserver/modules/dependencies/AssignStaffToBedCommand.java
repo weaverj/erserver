@@ -1,4 +1,4 @@
-package erserver.module3;
+package erserver.modules.dependencies;
 
 public class AssignStaffToBedCommand {
 

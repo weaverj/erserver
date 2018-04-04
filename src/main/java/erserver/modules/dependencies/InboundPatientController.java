@@ -1,6 +1,6 @@
-package erserver.module3;
+package erserver.modules.dependencies;
 
-import erserver.module2.Patient;
+import erserver.modules.testtypes.Patient;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
