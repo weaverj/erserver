@@ -75,6 +75,7 @@ public class ERStubSystem {
          xml.append("<Patient>");
          xml.append("<TransportId>").append(patient.getTransportId()).append("</TransportId>");
          xml.append("<Name>").append(patient.getName()).append("</Name>");
+         xml.append("<Condition>").append("heart arrhythmia").append("</Condition>");
          xml.append("<Priority>").append(patient.getPriority()).append("</Priority>");
          xml.append("<Birthdate>");
          if (null != patient.getBirthDate()) {
