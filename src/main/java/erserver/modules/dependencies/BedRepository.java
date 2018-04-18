@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class BedRepository {
+public class BedRepository implements BedProvider {
    private String staffFile = "/beds.csv";
    private Scanner scanner;
 
@@ -20,6 +20,7 @@ public class BedRepository {
       }
    }
 
+   @Override
    public List<Bed> getAllBeds() {
       ArrayList<Bed> bedList = new ArrayList<>();
       while (scanner.hasNextLine()) {

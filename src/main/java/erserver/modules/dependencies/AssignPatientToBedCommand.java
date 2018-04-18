@@ -5,22 +5,22 @@ import erserver.modules.testtypes.Patient;
 public class AssignPatientToBedCommand {
 
    private StaffAssignmentManager staffAssignmentManager;
-   private InboundPatientController inboundPatientController;
+   private InboundPatientSource inboundPatientSource;
 
-   public AssignPatientToBedCommand(StaffAssignmentManager staffAssignmentManager, InboundPatientController inboundPatientController) {
+   public AssignPatientToBedCommand(StaffAssignmentManager staffAssignmentManager, InboundPatientSource inboundPatientSource) {
       this.staffAssignmentManager = staffAssignmentManager;
-      this.inboundPatientController = inboundPatientController;
+      this.inboundPatientSource = inboundPatientSource;
    }
 
    public void assignPatientToBed(int transportId, int bedId) {
       Bed bed = staffAssignmentManager.getBedById(bedId);
       Patient patient = getPatientByTransport(transportId);
       staffAssignmentManager.assignPatientToBed(patient, bed);
-      inboundPatientController.informOfPatientArrival(transportId);
+      inboundPatientSource.informOfPatientArrival(transportId);
    }
 
    private Patient getPatientByTransport(int transportId) {
-      for (Patient patient : inboundPatientController.currentInboundPatients()) {
+      for (Patient patient : inboundPatientSource.currentInboundPatients()) {
          if (patient.getTransportId() == transportId) {
             return patient;
          }

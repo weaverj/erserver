@@ -87,4 +87,5 @@ public class ERStubSystem {
       xml.append("</Inbound>");
       return xml.toString();
    }
+
 }

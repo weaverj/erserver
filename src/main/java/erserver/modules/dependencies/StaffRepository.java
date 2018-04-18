@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class StaffRepository {
+public class StaffRepository implements StaffProvider {
 
    private String staffFile = "/staff.csv";
    private Scanner scanner;
@@ -21,6 +21,7 @@ public class StaffRepository {
       }
    }
 
+   @Override
    public List<Staff> getShiftStaff() {
       ArrayList<Staff> staffList = new ArrayList<>();
       while (scanner.hasNextLine()) {

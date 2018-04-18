@@ -10,17 +10,18 @@ import static org.junit.Assert.*;
 public class DosingCalculatorTest {
 
     private DosingCalculator dosingCalculator;
-    private Patient patient;
+    private PatientForTesting patient;
 
     @Before
     public void setUp() {
         dosingCalculator = new DosingCalculator();
-        patient = new Patient();
+        patient = new PatientForTesting();
     }
 
     @Test
-    public void returnsCorrectDosesForNeonate() {
-        patient.setBirthDate(LocalDate.now().minusMonths(1));
+    public void returnsCorrectDosesForNeonateByDaysNotMonths() {
+        patient.setBirthDate(LocalDate.of(2016, 2, 28));
+        patient.setCurrentDate(LocalDate.of(2016, 3, 28));
         String singleDose = dosingCalculator.getRecommendedSingleDose(patient, "Tylenol Oral Suspension");
         assertEquals("0", singleDose);
     }

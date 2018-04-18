@@ -11,21 +11,30 @@ public class AlertScanner {
 
    private static final String ADMIN_ON_CALL_DEVICE = "111-111-1111";
 
-   private StaffAssignmentManager staffAssignmentManager;
-   private InboundPatientController inboundPatientController;
+   private InboundPatientSource inboundPatientSource;
    private ArrayList<Integer> criticalPatientNotificationsSent;
+   private AlertTransmitter alertTransmitter;
 
-   public AlertScanner(StaffAssignmentManager staffAssignmentManager, InboundPatientController inboundPatientController) {
-      this.staffAssignmentManager = staffAssignmentManager;
-      this.inboundPatientController = inboundPatientController;
+   public AlertScanner(InboundPatientSource inboundPatientSource) {
+      this(inboundPatientSource, null);
+   }
+
+   public AlertScanner(InboundPatientSource inboundPatientSource, AlertTransmitter alertTransmitter) {
+      this.inboundPatientSource = inboundPatientSource;
+      this.alertTransmitter = alertTransmitter;
       criticalPatientNotificationsSent = new ArrayList<>();
    }
 
    public void scan() {
       System.out.println("Scanning for situations requiring alerting...");
-      List<Patient> inbound = inboundPatientController.currentInboundPatients();
+      List<Patient> inbound = inboundPatientSource.currentInboundPatients();
       for (Patient patient : inbound) {
          if (Priority.RED.equals(patient.getPriority())) {
+            if (!criticalPatientNotificationsSent.contains(patient.getTransportId())) {
+               alertForNewCriticalPatient(patient);
+            }
+         }
+         else if ( (Priority.YELLOW.equals(patient.getPriority())) && "heart arrhythmia".equalsIgnoreCase(patient.getCondition())) {
             if (!criticalPatientNotificationsSent.contains(patient.getTransportId())) {
                alertForNewCriticalPatient(patient);
             }
@@ -33,15 +42,19 @@ public class AlertScanner {
       }
    }
 
-   private void alertForNewCriticalPatient(Patient patient) {
+   protected void alertForNewCriticalPatient(Patient patient) {
       try {
-         PagerTransport transport = PagerSystem.getTransport();
-         transport.initialize();
-         transport.transmitRequiringAcknowledgement(ADMIN_ON_CALL_DEVICE, "New inbound critical patient: " +
-            patient.getTransportId());
+         if (Priority.RED.equals(patient.getPriority())) {
+            alertTransmitter.transmitRequiringAcknowledgement(ADMIN_ON_CALL_DEVICE, "New inbound critical patient: " +
+               patient.getTransportId());
+         } else {
+            alertTransmitter.transmit(ADMIN_ON_CALL_DEVICE, "New inbound critical patient: " +
+               patient.getTransportId());
+         }
          criticalPatientNotificationsSent.add(patient.getTransportId());
       } catch (Throwable t) {
-         System.out.println("Failed attempt to use pager system to device " + ADMIN_ON_CALL_DEVICE);
+         System.out.println("Failed attempt to use pager system to device " + ADMIN_ON_CALL_DEVICE +
+            " for patient " + patient.getName());
       }
    }
 

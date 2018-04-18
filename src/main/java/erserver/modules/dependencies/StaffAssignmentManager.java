@@ -11,11 +11,13 @@ public class StaffAssignmentManager {
    private HashMap<Bed, List<Staff>> bedStaffAssignments;
 
    public StaffAssignmentManager() {
-      StaffRepository staffRepo = new StaffRepository();
+      this(new StaffRepository(), new BedRepository());
+   }
+
+   public StaffAssignmentManager(StaffProvider staffRepo, BedProvider bedRepo) {
       shiftStaff = new ArrayList<>();
       shiftStaff.addAll(staffRepo.getShiftStaff());
       beds = new ArrayList<>();
-      BedRepository bedRepo = new BedRepository();
       beds.addAll(bedRepo.getAllBeds());
       bedStaffAssignments = new HashMap<>();
    }
@@ -43,7 +45,7 @@ public class StaffAssignmentManager {
    public List<Staff> getPhysiciansOnDuty() {
       ArrayList<Staff> physicians = new ArrayList<>();
       for (Staff staff : shiftStaff) {
-         if (staff.getRole().equals(StaffRole.DOCTOR)) {
+         if ( (staff.getRole().equals(StaffRole.DOCTOR)) || (staff.getRole().equals(StaffRole.RESIDENT))) {
             physicians.add(staff);
          }
       }
