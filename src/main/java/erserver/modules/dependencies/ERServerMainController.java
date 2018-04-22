@@ -28,7 +28,7 @@ public class ERServerMainController {
       };
       Timer timer = new Timer();
       timer.schedule(alertTask, 1000, 30000);
-g
+
       TimerTask divergenceCheck = new TimerTask() {
          @Override
          public void run() {
