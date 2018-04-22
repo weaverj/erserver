@@ -78,21 +78,15 @@ public class DivergenceController {
             staffcur[1]++;
          }
       }
-      System.out.println("** Running divergence check: \n");
-      System.out.println("\t Current Beds Available/With Crit Equip: " + beds.size() + "/" + bedcrits);
-      System.out.println("\t Current Staff Available Docs / Nurses: " + staffcur[0] + "/" + staffcur[1]);
-      System.out.println("\t Inbound Red / Yellow / Green: " + redin + "/" + yellowin + "/" + greenin);
       if (redin > (bedcrits + redOver)) {
          redCount++;
          redIncremented = true;
       }
       if (yellowin + greenin > (beds.size() - bedcrits + yellowOver + greenOver)) {
          if ( (greenin > (beds.size() - bedcrits + greenOver)) && (yellowin <= (beds.size() - bedcrits + yellowOver)) ) {
-            System.out.println("\n\t Green diversion due to bed shortage");
             greenCount++;
             greenIncremented = true;
          } else {
-            System.out.println("\n\t Yellow diversion due to bed shortage");
             greenCount++;
             yellowCount++;
             greenIncremented = true;
@@ -105,12 +99,10 @@ public class DivergenceController {
       need[1] = redin * red[1];
       need[1] += yellowin * yellow[1];
       need[1] += greenin * green[1];
-      System.out.println("\n\t Staff Need Docs/Nurses: " + need[0] + "/" + need[1]);
       if (need[0] > staffcur[0]) {
          int diff = need[0] - staffcur[0];
          if ((greenin * green[0]) >= diff)  {
             if (!greenIncremented) {
-               System.out.println("\t Green diversion will resolve staff shortage.");
                greenIncremented = true;
                greenCount++;
             }
@@ -118,7 +110,6 @@ public class DivergenceController {
          else {
             int both = (yellowin * yellow[0]) + (greenin * green[0]);
             if (both >= diff) {
-               System.out.println("\t Green and yellow diversion will resolve staff shortage.");
                if (!greenIncremented) {
                   greenIncremented = true;
                   greenCount++;
@@ -129,7 +120,6 @@ public class DivergenceController {
                }
             }
             else {
-               System.out.println("\t Full diversion due to staff shortage");
                if (!greenIncremented) {
                   greenIncremented = true;
                   greenCount++;
@@ -149,7 +139,6 @@ public class DivergenceController {
          int diff = need[1] - staffcur[1];
          if ((greenin * green[1]) >= diff)  {
             if (!greenIncremented) {
-               System.out.println("\t Green diversion will resolve staff shortage.");
                greenIncremented = true;
                greenCount++;
             }
@@ -157,7 +146,6 @@ public class DivergenceController {
          else {
             int both = (yellowin * yellow[1]) + (greenin * green[1]);
             if (both >= diff) {
-               System.out.println("\t Green and yellow diversion will resolve staff shortage.");
                if (!greenIncremented) {
                   greenIncremented = true;
                   greenCount++;
@@ -168,7 +156,6 @@ public class DivergenceController {
                }
             }
             else {
-               System.out.println("\t Full diversion due to staff shortage");
                if (!greenIncremented) {
                   greenIncremented = true;
                   greenCount++;
@@ -184,11 +171,9 @@ public class DivergenceController {
             }
          }
       }
-      System.out.println("\t Counts red/yellow/green: " + redCount + "/" + yellowCount + "/" + greenCount);
       EmergencyResponseService transportService = new EmergencyResponseService("http://localhost", 4567, 1000);
       if (redIncremented) {
          if ((redCount > allowedCount) && !redDivergence) {
-            System.out.println("Entering priority red divergence");
             redDivergence = true;
             transportService.requestInboundDiversion(Priority.RED);
             sendDivergencePage("Entered divergence for RED priority patients!", true);
@@ -197,7 +182,6 @@ public class DivergenceController {
       } else {
          redCount = 0;
          if (redDivergence) {
-            System.out.println("Ending priority red divergence");
             transportService.removeInboundDiversion(Priority.RED);
             sendDivergencePage("Ended divergence for RED priority patients.", false);
             redDivergence = false;
@@ -205,7 +189,6 @@ public class DivergenceController {
       }
       if (yellowIncremented) {
          if ((yellowCount > allowedCount) && !yellowDivergence) {
-            System.out.println("Entering priority yellow divergence");
             yellowDivergence = true;
             transportService.requestInboundDiversion(Priority.YELLOW);
             sendDivergencePage("Entered divergence for YELLOW priority patients!", true);
@@ -214,7 +197,6 @@ public class DivergenceController {
       } else {
          yellowCount = 0;
          if (yellowDivergence) {
-            System.out.println("Ending priority yellow divergence");
             transportService.removeInboundDiversion(Priority.YELLOW);
             sendDivergencePage("Ended divergence for YELLOW priority patients.", false);
             yellowDivergence = false;
@@ -222,7 +204,6 @@ public class DivergenceController {
       }
       if (greenIncremented) {
          if ((greenCount > allowedCount) && !greenDivergence) {
-            System.out.println("Entering priority green divergence");
             greenDivergence = true;
             transportService.requestInboundDiversion(Priority.GREEN);
             sendDivergencePage("Entered divergence for GREEN priority patients!", true);
@@ -231,7 +212,6 @@ public class DivergenceController {
       } else {
          greenCount = 0;
          if (greenDivergence) {
-            System.out.println("Ending priority green divergence");
             transportService.removeInboundDiversion(Priority.GREEN);
             sendDivergencePage("Ended divergence for GREEN priority patients.", false);
             greenDivergence = false;
