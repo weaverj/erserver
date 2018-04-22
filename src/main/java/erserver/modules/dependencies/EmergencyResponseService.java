@@ -63,7 +63,7 @@ public class EmergencyResponseService {
    public void requestInboundDiversion(Priority priority) {
       String response = null;
       try {
-         response = Request.Post(connectionString + "/diversion" + "?priority=" + priority)
+         response = Request.Post(connectionString + "/diversion" + "?priority=" + priority.name())
             .useExpectContinue()
             .version(HttpVersion.HTTP_1_1)
             .execute().returnContent().asString();
@@ -72,6 +72,21 @@ public class EmergencyResponseService {
       }
       if (!"OK".equals(response)) {
          throw new RuntimeException("Unable to inform of diversion");
+      }
+   }
+
+   public void removeInboundDiversion(Priority priority) {
+      String response = null;
+      try {
+         response = Request.Post(connectionString + "/diversionStop" + "?priority=" + priority.name())
+            .useExpectContinue()
+            .version(HttpVersion.HTTP_1_1)
+            .execute().returnContent().asString();
+      } catch (IOException e) {
+         throw new RuntimeException("Unable to remove diversion", e);
+      }
+      if (!"OK".equals(response)) {
+         throw new RuntimeException("Unable to remove diversion");
       }
    }
 
