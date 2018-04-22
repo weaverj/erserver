@@ -1,3 +1,9 @@
 ERServer.iml
 .idea
 /fitnesse/FitNesseRoot/ErServerTests/2*.zip
+/fitnesse/FitNesseRoot/*.zip
+/fitnesse/FitNesseRoot/RecentChanges.wiki
+/target/
+/fitnesse/FitNesseRoot/files/
+/fitnesse/FitNesseRoot/TemplateLibrary/
+/fitnesse/FitNesseRoot/FrontPage/*.zip

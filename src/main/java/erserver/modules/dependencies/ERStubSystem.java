@@ -36,7 +36,20 @@ public class ERStubSystem {
       });
 
       post("/diversion", (request, response) -> {
-         int transportId = Integer.parseInt(request.queryParams("priority"));
+         Priority priorityToDivert = Priority.valueOf(request.queryParams("priority"));
+         System.out.println("Transport service diverting patients with priority " + priorityToDivert.name());
+         List<Patient> patientsToDivert = new ArrayList<Patient>();
+         for (Patient patient : patientsInTransport) {
+            if (priorityToDivert.equals(patient.getPriority())) {
+               patientsToDivert.add(patient);
+            }
+         }
+         patientsInTransport.removeAll(patientsToDivert);
+         return ("OK");
+      });
+
+      post("/diversionStop", (request, response) -> {
+         Priority priorityToDivert = Priority.valueOf(request.queryParams("priority"));
          return ("OK");
       });
 
@@ -87,4 +100,5 @@ public class ERStubSystem {
       xml.append("</Inbound>");
       return xml.toString();
    }
+
 }
