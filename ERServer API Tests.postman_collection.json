@@ -1,0 +1,272 @@
+{
+	"info": {
+		"_postman_id": "c4fe88e0-5c67-46b3-893f-a032fb46f1b9",
+		"name": "ERServer API Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Check inbound patients call",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a8eb0ce5-11fb-4180-88fb-e3fe70bc3a0a",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validate inbound patient\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(1);",
+							"    pm.expect(jsonData[0].name).to.eql(\"John Doe\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8088/inboundPatients",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"inboundPatients"
+					]
+				},
+				"description": "Check inbound patients call"
+			},
+			"response": []
+		},
+		{
+			"name": "Get shift staff",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8088/shiftStaff",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"shiftStaff"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get available Staff",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8088/availableStaff",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"availableStaff"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get physicians",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8088/physiciansOnDuty",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"physiciansOnDuty"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get beds",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8088/beds",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"beds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get available beds",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8088/availableBeds",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"availableBeds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assign patient to bed",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:8088/assignPatientToBed?transportId=1&bedId=5",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"assignPatientToBed"
+					],
+					"query": [
+						{
+							"key": "transportId",
+							"value": "1"
+						},
+						{
+							"key": "bedId",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add new inbound",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"Sandra Plum\",\"priority\":\"RED\", \"condition\":\"stroke\"}"
+				},
+				"url": {
+					"raw": "localhost:4567/simulateNewTransport",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"simulateNewTransport"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assign staff to bed",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[1, 7]"
+				},
+				"url": {
+					"raw": "localhost:8088/assignStaffToBed?bedId=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8088",
+					"path": [
+						"assignStaffToBed"
+					],
+					"query": [
+						{
+							"key": "bedId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "external transport service inbound",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a8eb0ce5-11fb-4180-88fb-e3fe70bc3a0a",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Validate inbound patient\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(1);",
+							"    pm.expect(jsonData[0].name).to.eql(\"John Doe\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "localhost:4567/inbound",
+					"host": [
+						"localhost"
+					],
+					"port": "4567",
+					"path": [
+						"inbound"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
