@@ -1,4 +1,4 @@
 |import            |
-|erserver.module2  |
+|erserver.modules.testtypes  |
 |fitnesse.slim.test|
 |fitnesse.fixtures |
