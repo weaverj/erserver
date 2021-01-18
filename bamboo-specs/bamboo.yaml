@@ -1,0 +1,51 @@
+---
+version: 2
+plan:
+  project-key: ERS
+  key: MAIN
+  name: ER Server Main Build
+stages:
+- Maven Build:
+    manual: false
+    final: false
+    jobs:
+    - Maven Job
+Maven Job:
+  key: MVNJOB
+  tasks:
+  - checkout:
+      force-clean-build: 'false'
+  - maven:
+      executable: Maven 3
+      jdk: JDK 1.8
+      goal: clean install
+      tests: 'true'
+triggers:
+- polling: 180
+branches:
+  create: manually
+  delete: never
+  link-to-jira: true
+notifications: []
+labels: []
+other:
+  concurrent-build-plugin: system-default
+---
+version: 2
+plan:
+  key: ERS-MAIN
+plan-permissions:
+- roles:
+  - logged-in
+  - anonymous
+  permissions:
+  - view
+- users:
+  - jimweaver
+  permissions:
+  - view
+  - edit
+  - build
+  - clone
+  - admin
+...
